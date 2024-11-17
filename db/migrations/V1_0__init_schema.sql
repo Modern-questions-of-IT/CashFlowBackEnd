@@ -1,4 +1,4 @@
-CREATE TABLE Users (
+CREATE TABLE user (
     user_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -7,7 +7,7 @@ CREATE TABLE Users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Categories (
+CREATE TABLE category (
     category_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
     name VARCHAR(100) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE Categories (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Transactions (
+CREATE TABLE transaction (
     transaction_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
     type VARCHAR(10) NOT NULL CHECK (type IN ('income', 'expense')),
@@ -30,7 +30,7 @@ CREATE TABLE Transactions (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Confirmations (
+CREATE TABLE confirmation (
     confirmation_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES Users(user_id) ON DELETE CASCADE,
     transaction_id INTEGER NOT NULL REFERENCES Transactions(transaction_id) ON DELETE CASCADE,

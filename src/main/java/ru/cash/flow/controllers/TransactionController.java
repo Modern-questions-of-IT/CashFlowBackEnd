@@ -3,6 +3,7 @@ package ru.cash.flow.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ru.cash.flow.dto.TransactionDto;
 import ru.cash.flow.services.TransactionService;
 import ru.cash.flow.entities.Transaction;
 
@@ -13,8 +14,8 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
     @PostMapping("/register_new")
-    public Transaction create() {
-        return null;
+    public Transaction create(@RequestBody TransactionDto dto) {
+        return transactionService.createNew(dto);
     }
 
 
