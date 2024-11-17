@@ -15,7 +15,7 @@ public class UserService {
     private UserMapper userMapper;
 
     public User create(UserDto userDto) {
-        User user = userMapper.toUser(userDto);
+        User user = userMapper.toModel(userDto);
         return userRepository.save(user);
     }
 

@@ -1,9 +1,6 @@
 package ru.cash.flow.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,10 +9,10 @@ import java.util.Date;
 @Entity
 @Setter
 @Getter
-@Table(name = "user", schema = "cash_flow")
+@Table(name = "users")
 public class User {
     @Id
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;

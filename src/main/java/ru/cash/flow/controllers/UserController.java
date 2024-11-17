@@ -8,13 +8,13 @@ import ru.cash.flow.entities.User;
 import ru.cash.flow.services.UserService;
 
 @RestController
-@RequestMapping("/user/")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     UserService userService;
-    @PostMapping(value = "/create")
-    @ResponseBody
+//    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping("/create")
     public User create(@RequestBody UserDto user) {
         return userService.create(user);
     }

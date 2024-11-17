@@ -10,10 +10,10 @@ import java.util.Date;
 @Setter
 @Getter
 @Entity
-@Table(name = "category", schema = "cash_flow")
+@Table(name = "category")
 public class TransactionCategory {
     @Id
-    @Column(name = "category_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JoinColumn(name = "user_id")
     @ManyToOne
