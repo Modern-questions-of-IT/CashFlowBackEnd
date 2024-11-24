@@ -1,12 +1,8 @@
 package ru.cash.flow.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-import ru.cash.flow.entities.TransactionCategory;
+import ru.cash.flow.entities.Category;
 import ru.cash.flow.entities.User;
 
 import java.math.BigDecimal;
@@ -15,9 +11,9 @@ import java.util.Date;
 @Setter
 @Getter
 public class TransactionDto {
-    private User userId;
+    private Integer userId;
     private String type;
-    private TransactionCategory categoryId;
+    private Integer categoryId;
     private String title;
     private BigDecimal amount;
     private Date date;

@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @Getter
 public class CategoryDto {
-    private User user;
     private String name;
+    private Integer userId;
 
 }

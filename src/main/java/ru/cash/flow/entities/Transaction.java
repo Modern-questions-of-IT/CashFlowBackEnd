@@ -16,13 +16,13 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JoinColumn(name = "user_id")
-    @ManyToOne
-    private User userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
     @Column(name = "type")
     private String type;
-    @JoinColumn(name = "category_id")
-    @ManyToOne
-    private TransactionCategory categoryId;
+    @JoinColumn(name = "category")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category category;
     @Column(name = "title")
     private String title;
     @Column(name = "amount")

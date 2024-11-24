@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.cash.flow.dto.CategoryDto;
-import ru.cash.flow.entities.TransactionCategory;
+import ru.cash.flow.entities.Category;
 import ru.cash.flow.services.CategoryService;
 
 @Controller
@@ -17,14 +17,13 @@ public class CategoryController {
 
 
     @PostMapping("/create")
-    public TransactionCategory create(@RequestBody CategoryDto categoryDto) {
+    public Category create(@RequestBody CategoryDto categoryDto) {
         return categoryService.create(categoryDto);
     }
 
     @GetMapping("/get/{id}")
-    public TransactionCategory get(@PathVariable Long id) {
-        return null;
+    public Category get(@PathVariable Integer id) {
 
+        return categoryService.getById(id);
     }
-
 }

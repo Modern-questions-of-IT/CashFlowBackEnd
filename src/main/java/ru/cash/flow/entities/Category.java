@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Entity
 @Table(name = "category")
-public class TransactionCategory {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
