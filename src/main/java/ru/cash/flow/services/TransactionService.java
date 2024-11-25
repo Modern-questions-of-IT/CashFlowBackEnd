@@ -37,8 +37,7 @@ public class TransactionService {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
-        List<Transaction> transactions = transactionRepository.findByUserIdAndCreatedAtBetween(dateFrom, dateTo);
+        List<Transaction> transactions = transactionRepository.findByUserIdAndCreatedAtBetween(dto.getUserId(), dateFrom, dateTo);
         System.out.println("doc");
         return transactions;
     }
