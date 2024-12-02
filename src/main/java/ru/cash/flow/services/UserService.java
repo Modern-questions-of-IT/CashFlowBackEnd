@@ -1,30 +1,20 @@
 package ru.cash.flow.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import ru.cash.flow.dto.UserDto;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.cash.flow.entities.User;
-import ru.cash.flow.mappers.UserMapper;
-import ru.cash.flow.repositories.UserRepository;
 
-import java.util.Optional;
+public interface UserService {
+    User save(User user);
 
-@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserMapper userMapper;
+    User create(User user);
 
-    public User create(UserDto userDto) {
-        User user = userMapper.toModel(userDto);
-        return userRepository.save(user);
-    }
+    User getByUsername(String username);
 
-    public User get(Integer id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.orElse(null);
-    }
+    UserDetailsService userDetailsService();
 
+    User getCurrentUser();
 
+    @Deprecated
+    void getAdmin();
 }

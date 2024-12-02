@@ -5,8 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.cash.flow.dto.TransactionDto;
 import ru.cash.flow.dto.TransactionsForPeriodDto;
-import ru.cash.flow.services.TransactionService;
 import ru.cash.flow.entities.Transaction;
+import ru.cash.flow.services.impl.TransactionService;
+
 import java.util.List;
 
 @Controller
@@ -15,6 +16,7 @@ import java.util.List;
 public class TransactionController {
     @Autowired
     TransactionService transactionService;
+
     @PostMapping("/register_new")
     public Transaction create(@RequestBody TransactionDto dto) {
         return transactionService.createNew(dto);
@@ -35,6 +37,7 @@ public class TransactionController {
     public Transaction get(@PathVariable Integer id) {
         return null;
     }
+
     @GetMapping("/getByTime")
     public List<Transaction> getByTime(@RequestBody TransactionsForPeriodDto dto) {
         return transactionService.getByUserIdAndTime(dto);

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.cash.flow.dto.CategoryDto;
 import ru.cash.flow.entities.Category;
-import ru.cash.flow.services.CategoryService;
+import ru.cash.flow.services.impl.CategoryService;
 
 @Controller
 @RestController

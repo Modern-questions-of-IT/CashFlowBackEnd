@@ -2,8 +2,6 @@ package ru.cash.flow.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.cash.flow.entities.Category;
-import ru.cash.flow.entities.User;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,7 +9,7 @@ import java.util.Date;
 @Setter
 @Getter
 public class TransactionDto {
-    private Integer userId;
+    private Long userId;
     private String type;
     private Integer categoryId;
     private String title;
