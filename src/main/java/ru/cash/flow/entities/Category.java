@@ -14,7 +14,7 @@ import java.util.Date;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @JoinColumn(name = "user_id")
     @ManyToOne
     private User user;
