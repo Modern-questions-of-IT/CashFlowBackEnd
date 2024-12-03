@@ -28,27 +28,29 @@ public class RegularTransactionController {
     RegularTransactionService regularTransactionService;
     @Value("${bot.address}")
     private String botAddress;
+    @Value("${bot.endpoint}")
+    private String endpoint;
 
     @PostMapping("/register_new")
     public RegularTransaction create(@RequestBody RegularTransactionDto dto) {
         return regularTransactionService.createNew(dto);
     }
 
-    @Scheduled(fixedDelay = 86_400_000)
+    @Scheduled(fixedDelay = 3_600_000)
     private void sendRequestToOtherService() {
         List<RegularTransaction> transactions = regularTransactionService.getAll();
 
         Date today = new Date();
         for (RegularTransaction transaction : transactions) {
-            if (transaction.getNextOccurrence().compareTo(today) == 0) {
+            if (transaction.getNextOccurrence().before(today)) {
 
                 ToBotRegularTransactionDto dto = regularTransactionService.toDto(transaction);
-                final RestTemplate restTemplate = new RestTemplate();
-
                 StringBuilder requestURL = new StringBuilder();
                 requestURL.append("http://")
                         .append(botAddress)
-                        .append("/add_device");
+                        .append(endpoint);
+
+                final RestTemplate restTemplate = new RestTemplate();
                 final ToBotRegularTransactionDto stringPosts = restTemplate.postForObject(
                         requestURL.toString(),
                         dto,
