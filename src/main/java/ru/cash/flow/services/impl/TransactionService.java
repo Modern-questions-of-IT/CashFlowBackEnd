@@ -1,8 +1,7 @@
-package ru.cash.flow.services;
+package ru.cash.flow.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.cash.flow.dto.TransactionDto;
 import ru.cash.flow.dto.TransactionsForPeriodDto;
 import ru.cash.flow.entities.Transaction;

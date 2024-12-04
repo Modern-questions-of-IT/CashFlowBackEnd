@@ -4,15 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.cash.flow.dto.TransactionDto;
 import ru.cash.flow.entities.Transaction;
-import ru.cash.flow.services.CategoryService;
-import ru.cash.flow.services.UserService;
+import ru.cash.flow.services.impl.CategoryService;
+import ru.cash.flow.services.impl.UserServiceTemp;
 
 @Component
 public class TransactionMapper {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private UserService userService;
+    private UserServiceTemp userServiceTemp;
 
     public Transaction toModel(TransactionDto dto) {
         if (dto == null) {
@@ -21,7 +21,7 @@ public class TransactionMapper {
 
         Transaction transaction = new Transaction();
 
-        transaction.setUser(userService.get(dto.getUserId()));
+        transaction.setUser(userServiceTemp.get(dto.getUserId()));
 
         transaction.setType(dto.getType());
         transaction.setCategory(categoryService.getById(dto.getCategoryId()));
