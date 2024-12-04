@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
         return repository.save(user);
     }
 
+    @Override
+    public User get(Long user) {
+        return repository.findById(user).orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден: " + user));
+    }
+
 
     @Override
     public User create(User user) {

@@ -7,7 +7,7 @@ import ru.cash.flow.dto.ToBotRegularTransactionDto;
 import ru.cash.flow.dto.TransactionDto;
 import ru.cash.flow.entities.RegularTransaction;
 import ru.cash.flow.entities.Transaction;
-import ru.cash.flow.services.CategoryService;
+import ru.cash.flow.services.impl.CategoryService;
 import ru.cash.flow.services.UserService;
 
 @Component
@@ -23,7 +23,7 @@ public class RegularTransactionMapper {
 
         RegularTransaction transaction = new RegularTransaction();
 
-        transaction.setUser(userService.get(dto.getUserId()));
+        transaction.setUser(userService.get(dto.getUserId().longValue()));
 
         transaction.setType(dto.getType());
         transaction.setCategory(categoryService.getById(dto.getCategoryId()));
