@@ -8,10 +8,7 @@ import ru.cash.flow.entities.RegularTransaction;
 import ru.cash.flow.mappers.RegularTransactionMapper;
 import ru.cash.flow.repositories.RegularTransactionRepository;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RegularTransactionService {
@@ -43,6 +40,22 @@ public class RegularTransactionService {
         List<RegularTransaction> transactions = regularTransactionRepository.findAll();
 
         return transactions;
+    }
+
+    public void delete(Integer id) {
+        Optional<RegularTransaction> toDelete = regularTransactionRepository.findById(id);
+        toDelete.ifPresent(regularTransaction -> regularTransactionRepository.delete(regularTransaction));
+    }
+
+    public RegularTransaction update(RegularTransactionDto dto) {
+        RegularTransaction found = regularTransactionRepository.findRegularTransactionByUserId(dto.getUserId());
+        found.setType(dto.getType());
+        found.setTitle(dto.getTitle());
+        found.setAmount(dto.getAmount());
+        Date nextOccurance = calculateNextOccurence(new Date(), dto.getDay(), dto.getMonth(),dto.getYear());
+        found.setNextOccurrence(nextOccurance);
+
+        return regularTransactionRepository.save(found);
     }
 
     public ToBotRegularTransactionDto toDto(RegularTransaction regularTransaction) {

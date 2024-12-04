@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import ru.cash.flow.dto.RegularTransactionDto;
 import ru.cash.flow.dto.ToBotRegularTransactionDto;
@@ -34,6 +31,16 @@ public class RegularTransactionController {
     @PostMapping("/register_new")
     public RegularTransaction create(@RequestBody RegularTransactionDto dto) {
         return regularTransactionService.createNew(dto);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Integer id) {
+        regularTransactionService.delete(id);
+    }
+
+    @PutMapping("/update")
+    public RegularTransaction update(@RequestBody RegularTransactionDto dto) {
+        return regularTransactionService.update(dto);
     }
 
     @Scheduled(fixedDelay = 3_600_000)
