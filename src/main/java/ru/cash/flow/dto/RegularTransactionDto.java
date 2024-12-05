@@ -17,7 +17,7 @@ public class RegularTransactionDto {
     private Integer categoryId;
     private String title;
     private BigDecimal amount;
-    private Date firstTransaction;
+    private Date date;
     private Integer day;
     private Integer month;
     private Integer year;

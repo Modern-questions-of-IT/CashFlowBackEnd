@@ -19,7 +19,7 @@ public class RegularTransactionService {
     public RegularTransaction createNew(RegularTransactionDto transactionDto) {
         RegularTransaction transaction = mapper.toModel(transactionDto);
 
-        transaction.setNextOccurrence(calculateNextOccurence(transactionDto.getFirstTransaction(),
+        transaction.setNextOccurrence(calculateNextOccurence(transactionDto.getDate(),
                 transactionDto.getDay(),
                 transactionDto.getMonth(),
                 transactionDto.getYear()));
