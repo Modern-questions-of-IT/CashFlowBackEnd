@@ -2,13 +2,12 @@ package ru.cash.flow.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.cash.flow.dto.JwtAuthenticationResponse;
-import ru.cash.flow.dto.SignInRequest;
-import ru.cash.flow.dto.SignUpRequest;
+import ru.cash.flow.dto.*;
 import ru.cash.flow.entities.User;
 import ru.cash.flow.enums.ERole;
 import ru.cash.flow.exceptions.InvalidPasswordException;
@@ -67,6 +66,35 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return new JwtAuthenticationResponse(jwt);
         } else {
             throw new InvalidPasswordException(request.getEmail());
+        }
+    }
+
+    public ProfileDto getInfo() {
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found by username: " + SecurityContextHolder.getContext().getAuthentication().getName()));
+        return ProfileDto.builder()
+                .email(user.getEmail())
+                .name(user.getName())
+                .role(user.getRole())
+                .build();
+    }
+
+    public JwtAuthenticationResponse changeUserData(ChangeUsernameRequest changeUserDataRequest) {
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found by username: " + SecurityContextHolder.getContext().getAuthentication().getName()));
+        user.setEmail(changeUserDataRequest.getEmail());
+        userRepository.save(user);
+        return new JwtAuthenticationResponse(jwtService.generateToken(user));
+    }
+
+    public Long changePassword(ChangePasswordRequest changePasswordRequest) {
+        User user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new UsernameNotFoundException(SecurityContextHolder.getContext().getAuthentication().getName()));
+        if (passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
+            user.setPasswordHash(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+            return userRepository.save(user).getId().longValue();
+        } else {
+            throw new InvalidPasswordException(user.getEmail());
         }
     }
 

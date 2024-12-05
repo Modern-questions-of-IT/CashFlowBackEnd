@@ -11,13 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.cash.flow.dto.JwtAuthenticationResponse;
-import ru.cash.flow.dto.SignInRequest;
-import ru.cash.flow.dto.SignUpRequest;
+import org.springframework.web.bind.annotation.*;
+import ru.cash.flow.dto.*;
 import ru.cash.flow.exceptions.UserUsernameAlreadyExistsException;
 import ru.cash.flow.services.AuthenticationService;
 
@@ -48,6 +43,24 @@ public class AuthController {
     @PostMapping("/sign-in")
     public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody @Valid SignInRequest request) {
         return ResponseEntity.ok(authenticationService.signIn(request));
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<ProfileDto> getInfo() {
+        ProfileDto profileDto = authenticationService.getInfo();
+        return ResponseEntity.ok(profileDto);
+    }
+
+    @PutMapping("/change-username")
+    public ResponseEntity<JwtAuthenticationResponse> changeUserData(@RequestBody ChangeUsernameRequest changeUserDataRequest) {
+        JwtAuthenticationResponse response = authenticationService.changeUserData(changeUserDataRequest);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<Long> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        Long userId = authenticationService.changePassword(changePasswordRequest);
+        return ResponseEntity.ok(userId);
     }
 
 }
