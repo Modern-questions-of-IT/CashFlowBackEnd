@@ -21,10 +21,10 @@ public class TransactionMapper {
 
         Transaction transaction = new Transaction();
 
-        transaction.setUser(userServiceTemp.get(dto.getUserId()));
+        transaction.setUser(dto.getUserId());
 
         transaction.setType(dto.getType());
-        transaction.setCategory(categoryService.getById(dto.getCategoryId()));
+        transaction.setCategory(dto.getCategoryId());
         transaction.setTitle(dto.getTitle());
         transaction.setAmount(dto.getAmount());
         transaction.setDate(dto.getDate());

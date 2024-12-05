@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
     @Query("SELECT t FROM Transaction t " +
-            "WHERE t.user.id = :userId " +
+            "WHERE t.user = :userId " +
             "AND t.date BETWEEN :startDate " +
             "AND :endDate")
     List<Transaction> findByUserIdAndCreatedAtBetween(

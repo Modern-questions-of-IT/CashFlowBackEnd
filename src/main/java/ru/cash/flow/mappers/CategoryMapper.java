@@ -19,8 +19,8 @@ public class CategoryMapper {
         }
 
         Category category = new Category();
-        User user = userServiceTemp.get(dto.getUserId());
-        category.setUser(user);
+//        User user = userServiceTemp.get(dto.getUserId());
+        category.setUser(dto.getUserId());
         category.setName(dto.getName());
 
         return category;

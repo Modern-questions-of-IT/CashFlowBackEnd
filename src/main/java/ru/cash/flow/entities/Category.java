@@ -15,9 +15,8 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @JoinColumn(name = "user_id")
-    @ManyToOne
-    private User user;
+    @Column(name = "user_id")
+    private Integer user;
     @Column(name = "name")
     private String name;
     @Column(name = "created_at")

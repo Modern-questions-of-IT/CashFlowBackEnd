@@ -21,10 +21,10 @@ public class RegularTransactionMapper {
 
         RegularTransaction transaction = new RegularTransaction();
 
-        transaction.setUser(userService.get(dto.getUserId().longValue()));
+        transaction.setUser(dto.getUserId());
 
         transaction.setType(dto.getType());
-        transaction.setCategory(categoryService.getById(dto.getCategoryId()));
+        transaction.setCategory(dto.getCategoryId());
         transaction.setTitle(dto.getTitle());
         transaction.setAmount(dto.getAmount());
         transaction.setCreatedAt(dto.getCreatedAt());
@@ -40,10 +40,10 @@ public class RegularTransactionMapper {
 
         ToBotRegularTransactionDto transaction = new ToBotRegularTransactionDto();
 
-        transaction.setUserId(entity.getUser().getId());
+        transaction.setUserId(entity.getUser().longValue());
         transaction.setType(entity.getType());
-        transaction.setCategoryName(
-                entity.getCategory().getName());
+
+        transaction.setCategoryName(categoryService.getById(entity.getCategory()).getName());
         transaction.setTitle(entity.getTitle());
         transaction.setAmount(entity.getAmount());
         transaction.setDate(entity.getNextOccurrence());

@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 public class CategoryDto {
     private String name;
-    private Long userId;
+    private Integer userId;
 
 }

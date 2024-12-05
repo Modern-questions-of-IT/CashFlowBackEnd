@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionDto {
-    private Long userId;
+    private Integer userId;
     private String type;
     private Integer categoryId;
     private String categoryName;

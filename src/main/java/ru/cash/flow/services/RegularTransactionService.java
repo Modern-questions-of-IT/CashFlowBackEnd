@@ -48,7 +48,7 @@ public class RegularTransactionService {
     }
 
     public RegularTransaction update(RegularTransactionDto dto) {
-        RegularTransaction found = regularTransactionRepository.findRegularTransactionByUserId(dto.getUserId());
+        RegularTransaction found = regularTransactionRepository.findRegularTransactionByUser(dto.getUserId());
         found.setType(dto.getType());
         found.setTitle(dto.getTitle());
         found.setAmount(dto.getAmount());

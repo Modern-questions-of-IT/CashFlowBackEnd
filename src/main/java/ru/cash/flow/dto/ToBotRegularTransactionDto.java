@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class ToBotRegularTransactionDto {
-    private Integer userId;
+    private Long userId;
     private String type;
     private String categoryName;
     private String title;
