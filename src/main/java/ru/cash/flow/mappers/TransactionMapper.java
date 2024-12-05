@@ -36,4 +36,26 @@ public class TransactionMapper {
 
         return transaction;
     }
+
+    public TransactionDto toDto(Transaction transaction) {
+        if (transaction == null) {
+            return null;
+        }
+
+        TransactionDto dto = new TransactionDto();
+        // Заполнение полей dto из transaction
+        dto.setUserId(transaction.getUser() != null ? transaction.getUser().getId().longValue() : null);
+        dto.setType(transaction.getType());
+        dto.setCategoryId(transaction.getCategory() != null ? transaction.getCategory().getId() : null);
+        dto.setTitle(transaction.getTitle());
+        dto.setAmount(transaction.getAmount());
+        dto.setDate(transaction.getDate());
+        dto.setIsRecurring(transaction.getIsRecurring());
+        dto.setFrequency(transaction.getFrequency());
+        dto.setNextOccurrence(transaction.getNextOccurrence());
+        dto.setCreatedAt(transaction.getCreatedAt());
+        dto.setUpdatedAt(transaction.getUpdatedAt());
+
+        return dto;
+    }
 }
