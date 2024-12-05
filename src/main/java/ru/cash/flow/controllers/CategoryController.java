@@ -23,7 +23,6 @@ public class CategoryController {
 
     @GetMapping("/get/{id}")
     public Category get(@PathVariable Integer id) {
-
         return categoryService.getById(id);
     }
 }

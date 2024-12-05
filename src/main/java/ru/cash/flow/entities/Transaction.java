@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "transaction")
+@Table(name = "transactions")
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Transaction {
     private Integer user;
     @Column(name = "type")
     private String type;
-    @Column
+    @Column(name = "category_id")
     private Integer category;
     @Column(name = "title")
     private String title;
@@ -27,14 +27,6 @@ public class Transaction {
     private BigDecimal amount;
     @Column(name = "date")
     private Date date;
-    @Column(name = "is_recurring")
-    private Boolean isRecurring;
-    @Column(name = "frequency")
-    private Long frequency;
     @Column(name = "next_occurrence")
     private Date nextOccurrence;
-    @Column(name = "created_at")
-    private Date createdAt;
-    @Column(name = "updated_at")
-    private Date updatedAt;
 }

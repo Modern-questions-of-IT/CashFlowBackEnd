@@ -30,8 +30,6 @@ public class User implements UserDetails {
     private ERole role;
     @Column(name = "created_at")
     private Instant createdAt;
-    @Column(name = "updated_at")
-    private Instant updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

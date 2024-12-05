@@ -28,11 +28,8 @@ public class TransactionMapper {
         transaction.setTitle(dto.getTitle());
         transaction.setAmount(dto.getAmount());
         transaction.setDate(dto.getDate());
-        transaction.setIsRecurring(dto.getIsRecurring());
-        transaction.setFrequency(dto.getFrequency());
+        transaction.setDate(dto.getDate());
         transaction.setNextOccurrence(dto.getNextOccurrence());
-        transaction.setCreatedAt(dto.getCreatedAt());
-        transaction.setUpdatedAt(dto.getUpdatedAt());
 
         return transaction;
     }
@@ -44,17 +41,14 @@ public class TransactionMapper {
 
         TransactionDto dto = new TransactionDto();
         // Заполнение полей dto из transaction
-        dto.setUserId(transaction.getUser() != null ? transaction.getUser().getId().longValue() : null);
+        dto.setUserId(transaction.getUser() != null ? transaction.getUser() : null);
         dto.setType(transaction.getType());
-        dto.setCategoryId(transaction.getCategory() != null ? transaction.getCategory().getId() : null);
+        dto.setCategoryId(transaction.getCategory() != null ? transaction.getCategory() : null);
         dto.setTitle(transaction.getTitle());
         dto.setAmount(transaction.getAmount());
         dto.setDate(transaction.getDate());
-        dto.setIsRecurring(transaction.getIsRecurring());
-        dto.setFrequency(transaction.getFrequency());
         dto.setNextOccurrence(transaction.getNextOccurrence());
-        dto.setCreatedAt(transaction.getCreatedAt());
-        dto.setUpdatedAt(transaction.getUpdatedAt());
+        dto.setCreatedAt(transaction.getDate());
 
         return dto;
     }

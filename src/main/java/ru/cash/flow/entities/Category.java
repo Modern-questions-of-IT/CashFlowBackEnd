@@ -4,6 +4,7 @@ package ru.cash.flow.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ru.cash.flow.enums.ETransaction;
 
 import java.util.Date;
 
@@ -21,7 +22,6 @@ public class Category {
     private String name;
     @Column(name = "created_at")
     private Date createdAt;
-    @Column(name = "updated_at")
-    private Date updatedAt;
-
+    @Column(name = "type")
+    private ETransaction type;
 }

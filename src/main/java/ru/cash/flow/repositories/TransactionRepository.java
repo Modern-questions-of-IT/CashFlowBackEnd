@@ -21,23 +21,23 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
             @Param("endDate") Date endDate);
 
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId and t.type = :type AND t.createdAt BETWEEN :startDate AND :endDate")
+    @Query("SELECT t FROM Transaction t WHERE t.user = :userId and t.type = :type AND t.date BETWEEN :startDate AND :endDate")
     List<Transaction> findByUserIdAndCreatedAtBetween(
             @Param("userId") Long userId,
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("type") TransactionType type);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId " +
-            "and t.type = :type AND t.createdAt >= :startOfMonth AND t.createdAt < :endOfMonth")
+    @Query("SELECT t FROM Transaction t WHERE t.user = :userId " +
+            "and t.type = :type AND t.date >= :startOfMonth AND t.date < :endOfMonth")
     List<Transaction> findByUserIdAndMonth(
             @Param("userId") Long userId,
             @Param("startOfMonth") LocalDateTime startOfMonth,
             @Param("endOfMonth") LocalDateTime endOfMonth,
             @Param("type") TransactionType type);
 
-    @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId " +
-            "and t.type = :type AND t.createdAt >= :startOfYear AND t.createdAt < :endOfYear")
+    @Query("SELECT t FROM Transaction t WHERE t.user = :userId " +
+            "and t.type = :type AND t.date >= :startOfYear AND t.date < :endOfYear")
     List<Transaction> findByUserIdAndYear(
             @Param("userId") Long userId,
             @Param("startOfYear") LocalDateTime startOfYear,

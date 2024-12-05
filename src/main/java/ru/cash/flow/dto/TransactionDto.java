@@ -19,10 +19,7 @@ public class TransactionDto {
     private String title;
     private BigDecimal amount;
     private Date date;
-    private Boolean isRecurring;
-    private Long frequency;
     private Date nextOccurrence;
     private Date createdAt;
-    private Date updatedAt;
 
 }
