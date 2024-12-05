@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.cash.flow.dto.RegularTransactionDto;
 import ru.cash.flow.dto.ToBotRegularTransactionDto;
-import ru.cash.flow.dto.TransactionDto;
 import ru.cash.flow.entities.RegularTransaction;
-import ru.cash.flow.entities.Transaction;
 import ru.cash.flow.services.impl.CategoryService;
 import ru.cash.flow.services.UserService;
 
@@ -44,12 +42,11 @@ public class RegularTransactionMapper {
 
         transaction.setUserId(entity.getUser().getId());
         transaction.setType(entity.getType());
-        transaction.setCategoryId(
-                entity.getCategory().getId());
+        transaction.setCategoryName(
+                entity.getCategory().getName());
         transaction.setTitle(entity.getTitle());
         transaction.setAmount(entity.getAmount());
-        transaction.setCreatedAt(entity.getCreatedAt());
-        transaction.setUpdatedAt(entity.getUpdatedAt());
+        transaction.setDate(entity.getNextOccurrence());
 
         return transaction;
     }

@@ -11,9 +11,8 @@ import java.util.Date;
 public class ToBotRegularTransactionDto {
     private Integer userId;
     private String type;
-    private Integer categoryId;
+    private String categoryName;
     private String title;
     private BigDecimal amount;
-    private Date createdAt;
-    private Date updatedAt;
+    private Date date;
 }
