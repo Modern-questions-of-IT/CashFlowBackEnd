@@ -10,7 +10,7 @@ import java.time.Instant;
 
 @Service
 public interface StatisticService {
-    StatisticInfo getTransactionStatisticByTimeInterval(Long userId, ETimeInterval interval, Instant dateTime, TransactionType type);
+    StatisticInfo getTransactionStatisticByTimeIntervalAndType(Long userId, ETimeInterval interval, Instant dateTime, TransactionType type);
 
     StatisticInfo getTransactionStatisticByCustomTimeInterval(Long userId, Instant startDate, Instant endDate, TransactionType type);
 

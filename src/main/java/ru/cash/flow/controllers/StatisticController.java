@@ -29,7 +29,7 @@ public class StatisticController {
             @RequestParam Instant dateTime,
             @RequestParam TransactionType type) {
 
-        StatisticInfo statisticInfo = statisticService.getTransactionStatisticByTimeInterval(userId, interval, dateTime, type);
+        StatisticInfo statisticInfo = statisticService.getTransactionStatisticByTimeIntervalAndType(userId, interval, dateTime, type);
         return new ResponseEntity<>(statisticInfo, HttpStatus.OK);
     }
 

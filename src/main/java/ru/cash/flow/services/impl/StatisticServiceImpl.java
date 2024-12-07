@@ -27,18 +27,25 @@ public class StatisticServiceImpl implements StatisticService {
     private final TransactionMapper transactionMapper;
 
     @Override
-    public StatisticInfo getTransactionStatisticByTimeInterval(Long userId, ETimeInterval interval, Instant dateTime, TransactionType type) {
+    public StatisticInfo getTransactionStatisticByTimeIntervalAndType(Long userId, ETimeInterval interval, Instant dateTime, TransactionType type) {
+        List<TransactionType> types = new ArrayList<>();
+        if (type.equals(TransactionType.ALL)) {
+            types.add(TransactionType.INCOME);
+            types.add(TransactionType.EXPENSE);
+        } else {
+            types.add(type);
+        }
         List<TransactionDto> transactions = switch (interval) {
-            case TODAY -> getTransactionsByUserAndDay(userId, dateTime, type).stream()
+            case TODAY -> getTransactionsByUserAndDay(userId, dateTime, types).stream()
                     .map(transactionMapper::toDto)
                     .toList();
-            case WEEK -> getTransactionsByUserAndWeek(userId, dateTime, type).stream()
+            case WEEK -> getTransactionsByUserAndWeek(userId, dateTime, types).stream()
                     .map(transactionMapper::toDto)
                     .toList();
-            case MONTH -> getTransactionsByUserAndDate(userId, dateTime, type).stream()
+            case MONTH -> getTransactionsByUserAndDate(userId, dateTime, types).stream()
                     .map(transactionMapper::toDto)
                     .toList();
-            case YEAR -> getTransactionsByUserAndYear(userId, dateTime, type).stream()
+            case YEAR -> getTransactionsByUserAndYear(userId, dateTime, types).stream()
                     .map(transactionMapper::toDto)
                     .toList();
             case EXIT -> null;
@@ -52,9 +59,18 @@ public class StatisticServiceImpl implements StatisticService {
                 .build();
     }
 
+
+
     @Override
     public StatisticInfo getTransactionStatisticByCustomTimeInterval(Long userId, Instant startDate, Instant endDate, TransactionType type) {
-        List<TransactionDto> transactions = getTransactionsByUserAndDay(userId, startDate, endDate, type).stream()
+        List<TransactionType> types = new ArrayList<>();
+        if (type.equals(TransactionType.ALL)) {
+            types.add(TransactionType.INCOME);
+            types.add(TransactionType.EXPENSE);
+        } else {
+            types.add(type);
+        }
+        List<TransactionDto> transactions = getTransactionsByUserAndDay(userId, startDate, endDate, types).stream()
                 .map(transactionMapper::toDto)
                 .toList();
         ;
@@ -87,7 +103,7 @@ public class StatisticServiceImpl implements StatisticService {
                 ));
     }
 
-    private List<Transaction> getTransactionsByUserAndDay(Long userId, Instant startDate, Instant endDate, TransactionType type) {
+    private List<Transaction> getTransactionsByUserAndDay(Long userId, Instant startDate, Instant endDate, List<TransactionType> type) {
         LocalDate startlocalDate = startDate.atZone(ZoneId.of("Europe/Moscow")).toLocalDate();
         LocalDate endlocalDate = endDate.atZone(ZoneId.of("Europe/Moscow")).toLocalDate();
 
@@ -102,7 +118,7 @@ public class StatisticServiceImpl implements StatisticService {
         return transactionRepository.findByUserIdAndCreatedAtBetween(userId, first, second, type);
     }
 
-    private List<Transaction> getTransactionsByUserAndDay(Long userId, Instant date, TransactionType type) {
+    private List<Transaction> getTransactionsByUserAndDay(Long userId, Instant date, List<TransactionType> type) {
         LocalDate localDate = date.atZone(ZoneId.of("Europe/Moscow")).toLocalDate();
         int month = localDate.getMonthValue();
         int year = localDate.getYear();
@@ -121,7 +137,7 @@ public class StatisticServiceImpl implements StatisticService {
         return transactionRepository.findByUserIdAndCreatedAtBetween(userId, first, second, type);
     }
 
-    private List<Transaction> getTransactionsByUserAndWeek(Long userId, Instant date, TransactionType type) {
+    private List<Transaction> getTransactionsByUserAndWeek(Long userId, Instant date, List<TransactionType> type) {
         LocalDate localDate = date.atZone(ZoneId.of("Europe/Moscow")).toLocalDate();
         int month = localDate.getMonthValue();
         int year = localDate.getYear();
@@ -141,7 +157,7 @@ public class StatisticServiceImpl implements StatisticService {
         return transactionRepository.findByUserIdAndCreatedAtBetween(userId, first, second, type);
     }
 
-    private List<Transaction> getTransactionsByUserAndDate(Long userId, Instant date, TransactionType type) {
+    private List<Transaction> getTransactionsByUserAndDate(Long userId, Instant date, List<TransactionType> type) {
         LocalDate localDate = date.atZone(ZoneId.of("Europe/Moscow")).toLocalDate();
         int month = localDate.getMonthValue();
         int year = localDate.getYear();
@@ -159,7 +175,7 @@ public class StatisticServiceImpl implements StatisticService {
         return transactionRepository.findByUserIdAndMonth(userId, first, last, type);
     }
 
-    private List<Transaction> getTransactionsByUserAndYear(Long userId, Instant date, TransactionType type) {
+    private List<Transaction> getTransactionsByUserAndYear(Long userId, Instant date, List<TransactionType> type) {
 
         LocalDate localDate = date.atZone(ZoneId.of("Europe/Moscow")).toLocalDate();
         int year = localDate.getYear();
