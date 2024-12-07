@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @Builder
 public class ChangeUsernameRequest {
-    private String email;
+    private String name;
 }

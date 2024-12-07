@@ -40,6 +40,7 @@ public class TransactionMapper {
         }
 
         TransactionDto dto = new TransactionDto();
+        dto.setUserId(transaction.getUser() != null ? transaction.getUser() : null);
         // Заполнение полей dto из transaction
         dto.setUserId(transaction.getUser() != null ? transaction.getUser() : null);
         dto.setType(transaction.getType());

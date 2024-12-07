@@ -10,7 +10,7 @@ public interface AuthenticationService {
 
     Long changePassword(ChangePasswordRequest changePasswordRequest);
 
-    JwtAuthenticationResponse changeUserData(ChangeUsernameRequest changeUserDataRequest);
+    Long changeUserData(ChangeUsernameRequest changeUserDataRequest);
 
     ProfileDto getInfo();
 
