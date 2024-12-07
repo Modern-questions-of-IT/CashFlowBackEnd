@@ -24,7 +24,7 @@ public class RegularTransactionMapper {
 
         transaction.setUser(dto.getUserId());
 
-        transaction.setType(TransactionType.valueOf(dto.getType()));
+        transaction.setType(dto.getType());
         transaction.setCategory(dto.getCategoryId());
         transaction.setTitle(dto.getTitle());
         transaction.setAmount(dto.getAmount());
@@ -42,7 +42,7 @@ public class RegularTransactionMapper {
         ToBotRegularTransactionDto transaction = new ToBotRegularTransactionDto();
 
         transaction.setUserId(entity.getUser().longValue());
-        transaction.setType(entity.getType().name());
+        transaction.setType(entity.getType());
 
         transaction.setCategoryName(categoryService.getById(entity.getCategory()).getName());
         transaction.setTitle(entity.getTitle());

@@ -51,7 +51,7 @@ public class RegularTransactionService {
 
     public RegularTransaction update(RegularTransactionDto dto) {
         RegularTransaction found = regularTransactionRepository.findRegularTransactionByUser(dto.getUserId());
-        found.setType(TransactionType.valueOf(dto.getType()));
+        found.setType(dto.getType());
         found.setTitle(dto.getTitle());
         found.setAmount(dto.getAmount());
         Date nextOccurance = calculateNextOccurence(new Date(), dto.getDay(), dto.getMonth(),dto.getYear());
