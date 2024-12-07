@@ -45,6 +45,7 @@ public class TransactionMapper {
         dto.setUserId(transaction.getUser() != null ? transaction.getUser() : null);
         dto.setType(transaction.getType());
         dto.setCategoryId(transaction.getCategory() != null ? transaction.getCategory() : null);
+        dto.setCategoryName(categoryService.getById(transaction.getCategory()).getName());
         dto.setTitle(transaction.getTitle());
         dto.setAmount(transaction.getAmount());
         dto.setDate(transaction.getDate());
