@@ -2,6 +2,7 @@ package ru.cash.flow.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.cash.flow.enums.ETransaction;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.Date;
 @Setter
 public class ToBotRegularTransactionDto {
     private Long userId;
-    private String type;
+    private ETransaction type;
     private String categoryName;
     private String title;
     private BigDecimal amount;

@@ -1,7 +1,10 @@
 package ru.cash.flow.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import ru.cash.flow.dto.RegularTransactionDto;
 import ru.cash.flow.dto.ToBotRegularTransactionDto;
 import ru.cash.flow.entities.RegularTransaction;
@@ -17,6 +20,10 @@ public class RegularTransactionService {
     RegularTransactionRepository regularTransactionRepository;
     @Autowired
     RegularTransactionMapper mapper;
+    @Value("${bot.address}")
+    private String botAddress;
+    @Value("${bot.endpoint}")
+    private String endpoint;
     public RegularTransaction createNew(RegularTransactionDto transactionDto) {
         RegularTransaction transaction = mapper.toModel(transactionDto);
 
@@ -27,21 +34,15 @@ public class RegularTransactionService {
         return regularTransactionRepository.save(transaction);
     }
 
-    public List<ToBotRegularTransactionDto> getAllDto() {
-        List<RegularTransaction> transactions = regularTransactionRepository.findAll();
-        List<ToBotRegularTransactionDto> toBotRegularTransactionDtos = new ArrayList<>();
-        for (RegularTransaction transaction : transactions) {
-            toBotRegularTransactionDtos.add(mapper.toBotDto(transaction));
-        }
-
-        return toBotRegularTransactionDtos;
-    }
-
-    public List<RegularTransaction> getAll() {
-        List<RegularTransaction> transactions = regularTransactionRepository.findAll();
-
-        return transactions;
-    }
+//    public List<RegularTransactionDto> getAllDto() {
+//        List<RegularTransaction> transactions = regularTransactionRepository.findAll();
+//        List<RegularTransactionDto> toBotRegularTransactionDtos = new ArrayList<>();
+//        for (RegularTransaction transaction : transactions) {
+//            toBotRegularTransactionDtos.add(mapper.toBotDto(transaction));
+//        }
+//
+//        return toBotRegularTransactionDtos;
+//    }
 
     public void delete(Integer id) {
         Optional<RegularTransaction> toDelete = regularTransactionRepository.findById(id);
@@ -59,7 +60,15 @@ public class RegularTransactionService {
         return regularTransactionRepository.save(found);
     }
 
-    public ToBotRegularTransactionDto toDto(RegularTransaction regularTransaction) {
+    public List<RegularTransaction> getAllByUser(Integer id) {
+        return regularTransactionRepository.findAllByUser(id);
+    }
+
+    public List<RegularTransaction> getAll() {
+        return regularTransactionRepository.findAll();
+    }
+
+    private ToBotRegularTransactionDto toDto(RegularTransaction regularTransaction) {
         return mapper.toBotDto(regularTransaction);
     }
 
@@ -72,5 +81,28 @@ public class RegularTransactionService {
         Date newDate = instance.getTime(); // получаем измененную дату
 
         return newDate;
+    }
+
+    @Scheduled(fixedDelay = 3_600_000)
+    private void sendRequestToOtherService(){
+        List<RegularTransaction> transactions = getAll();
+
+        Date today = new Date();
+        for (RegularTransaction transaction : transactions) {
+            if (transaction.getNextOccurrence().before(today)) {
+
+                ToBotRegularTransactionDto dto = toDto(transaction);
+                StringBuilder requestURL = new StringBuilder();
+                requestURL.append("http://")
+                        .append(botAddress)
+                        .append(endpoint);
+
+                final RestTemplate restTemplate = new RestTemplate();
+                final ToBotRegularTransactionDto stringPosts = restTemplate.postForObject(
+                        requestURL.toString(),
+                        dto,
+                        ToBotRegularTransactionDto.class);
+            }
+        }
     }
 }

@@ -23,10 +23,7 @@ import java.util.List;
 public class RegularTransactionController {
     @Autowired
     RegularTransactionService regularTransactionService;
-    @Value("${bot.address}")
-    private String botAddress;
-    @Value("${bot.endpoint}")
-    private String endpoint;
+
 
     @PostMapping("/register_new")
     public RegularTransaction create(@RequestBody RegularTransactionDto dto) {
@@ -43,26 +40,10 @@ public class RegularTransactionController {
         return regularTransactionService.update(dto);
     }
 
-    @Scheduled(fixedDelay = 3_600_000)
-    private void sendRequestToOtherService() {
-        List<RegularTransaction> transactions = regularTransactionService.getAll();
-
-        Date today = new Date();
-        for (RegularTransaction transaction : transactions) {
-            if (transaction.getNextOccurrence().before(today)) {
-
-                ToBotRegularTransactionDto dto = regularTransactionService.toDto(transaction);
-                StringBuilder requestURL = new StringBuilder();
-                requestURL.append("http://")
-                        .append(botAddress)
-                        .append(endpoint);
-
-                final RestTemplate restTemplate = new RestTemplate();
-                final ToBotRegularTransactionDto stringPosts = restTemplate.postForObject(
-                        requestURL.toString(),
-                        dto,
-                        ToBotRegularTransactionDto.class);
-            }
-        }
+    @GetMapping("/getAll/{userId}")
+    public List<RegularTransaction> getAll(@PathVariable Integer userId) {
+        return regularTransactionService.getAllByUser(userId);
     }
+
+
 }
