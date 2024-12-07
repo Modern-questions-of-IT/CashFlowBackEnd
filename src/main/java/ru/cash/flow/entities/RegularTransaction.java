@@ -3,6 +3,7 @@ package ru.cash.flow.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ru.cash.flow.enums.TransactionType;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,7 +19,8 @@ public class RegularTransaction {
     @Column(name = "user_id")
     private Integer user;
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
     @Column(name = "category")
     private Integer category;
     @Column(name = "title")
