@@ -2,6 +2,7 @@ package ru.cash.flow.dto;
 
 import jakarta.annotation.Nonnull;
 import lombok.*;
+import ru.cash.flow.enums.TransactionType;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class TransactionDto {
     private Integer userId;
-    private String type;
+    private TransactionType type;
     private Integer categoryId;
     private String categoryName;
     private String title;

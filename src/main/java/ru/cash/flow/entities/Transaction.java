@@ -19,6 +19,7 @@ public class Transaction {
     @Column(name = "user_id")
     private Integer user;
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
     @Column(name = "category_id")
     private Integer category;
