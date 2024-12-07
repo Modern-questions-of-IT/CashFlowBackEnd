@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.cash.flow.dto.RegularTransactionDto;
 import ru.cash.flow.dto.ToBotRegularTransactionDto;
 import ru.cash.flow.entities.RegularTransaction;
+import ru.cash.flow.enums.TransactionType;
 import ru.cash.flow.services.impl.CategoryService;
 import ru.cash.flow.services.UserService;
 
@@ -23,7 +24,7 @@ public class RegularTransactionMapper {
 
         transaction.setUser(dto.getUserId());
 
-        transaction.setType(dto.getType());
+        transaction.setType(TransactionType.valueOf(dto.getType()));
         transaction.setCategory(dto.getCategoryId());
         transaction.setTitle(dto.getTitle());
         transaction.setAmount(dto.getAmount());
@@ -41,7 +42,7 @@ public class RegularTransactionMapper {
         ToBotRegularTransactionDto transaction = new ToBotRegularTransactionDto();
 
         transaction.setUserId(entity.getUser().longValue());
-        transaction.setType(entity.getType());
+        transaction.setType(entity.getType().name());
 
         transaction.setCategoryName(categoryService.getById(entity.getCategory()).getName());
         transaction.setTitle(entity.getTitle());

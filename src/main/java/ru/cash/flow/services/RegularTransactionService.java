@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.cash.flow.dto.RegularTransactionDto;
 import ru.cash.flow.dto.ToBotRegularTransactionDto;
 import ru.cash.flow.entities.RegularTransaction;
+import ru.cash.flow.enums.TransactionType;
 import ru.cash.flow.mappers.RegularTransactionMapper;
 import ru.cash.flow.repositories.RegularTransactionRepository;
 
@@ -49,7 +50,7 @@ public class RegularTransactionService {
 
     public RegularTransaction update(RegularTransactionDto dto) {
         RegularTransaction found = regularTransactionRepository.findRegularTransactionByUser(dto.getUserId());
-        found.setType(dto.getType());
+        found.setType(TransactionType.valueOf(dto.getType()));
         found.setTitle(dto.getTitle());
         found.setAmount(dto.getAmount());
         Date nextOccurance = calculateNextOccurence(new Date(), dto.getDay(), dto.getMonth(),dto.getYear());
