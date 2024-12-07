@@ -41,7 +41,7 @@ public class RegularTransactionController {
     }
 
     @GetMapping("/getAll/{userId}")
-    public List<RegularTransaction> getAll(@PathVariable Integer userId) {
+    public List<RegularTransactionDto> getAll(@PathVariable Integer userId) {
         return regularTransactionService.getAllByUser(userId);
     }
 

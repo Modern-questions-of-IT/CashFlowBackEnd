@@ -51,4 +51,25 @@ public class RegularTransactionMapper {
 
         return transaction;
     }
+
+    public RegularTransactionDto toDto(RegularTransaction entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        RegularTransactionDto transaction = new RegularTransactionDto();
+
+        transaction.setUserId(entity.getUser());
+        transaction.setType(entity.getType());
+        transaction.setCategoryId(entity.getCategory());
+        transaction.setCategoryName(categoryService.getById(entity.getCategory()).getName());
+        transaction.setTitle(entity.getTitle());
+        transaction.setAmount(entity.getAmount());
+        transaction.setDate(entity.getNextOccurrence());
+        transaction.setUpdatedAt(entity.getUpdatedAt());
+        transaction.setCreatedAt(entity.getCreatedAt());
+
+        return transaction;
+    }
+
 }

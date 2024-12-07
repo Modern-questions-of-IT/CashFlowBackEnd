@@ -60,8 +60,8 @@ public class RegularTransactionService {
         return regularTransactionRepository.save(found);
     }
 
-    public List<RegularTransaction> getAllByUser(Integer id) {
-        return regularTransactionRepository.findAllByUser(id);
+    public List<RegularTransactionDto> getAllByUser(Integer id) {
+        return regularTransactionRepository.findAllByUser(id).stream().map(mapper::toDto).toList();
     }
 
     public List<RegularTransaction> getAll() {
