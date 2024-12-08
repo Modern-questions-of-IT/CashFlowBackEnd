@@ -52,8 +52,8 @@ public class AuthController {
     }
 
     @PutMapping("/change-username")
-    public ResponseEntity<Long> changeUserData(@RequestBody ChangeUsernameRequest changeUserDataRequest) {
-        Long response = authenticationService.changeUserData(changeUserDataRequest);
+    public ResponseEntity<JwtAuthenticationResponse> changeUserData(@RequestBody ChangeUsernameRequest changeUserDataRequest) {
+        JwtAuthenticationResponse response = authenticationService.changeUserData(changeUserDataRequest);
         return ResponseEntity.ok(response);
     }
 
