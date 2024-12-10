@@ -11,8 +11,7 @@ import java.util.Date;
 @Setter
 @Getter
 @Entity
-@Table(name = "categories" +
-        "")
+@Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +23,6 @@ public class Category {
     @Column(name = "created_at")
     private Date createdAt;
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private ETransaction type;
 }
