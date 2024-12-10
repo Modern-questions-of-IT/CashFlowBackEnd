@@ -17,6 +17,4 @@ public interface UserService {
 
     User getCurrentUser();
 
-    @Deprecated
-    void getAdmin();
 }

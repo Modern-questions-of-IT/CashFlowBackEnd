@@ -26,8 +26,6 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "password_hash")
     private String passwordHash;
-    @Column(name = "role", nullable = false)
-    private ERole role;
     @Column(name = "created_at")
     private Instant createdAt;
 

@@ -23,17 +23,6 @@ import ru.cash.flow.services.AuthenticationService;
 public class AuthController {
     private final AuthenticationService authenticationService;
 
-    @Operation(summary = "Регистрация пользователя")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Успешная регистрация", content = @Content(schema = @Schema(implementation = JwtAuthenticationResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Неверный запрос", content = @Content(schema = @Schema(implementation = BadCredentialsException.class))),
-            @ApiResponse(responseCode = "409", description = "Пользователь с таким именем уже существует", content = @Content(schema = @Schema(implementation = UserUsernameAlreadyExistsException.class)))
-    })
-    @PostMapping("/sign-up")
-    public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody @Valid SignUpRequest request) {
-        return ResponseEntity.ok(authenticationService.signUp(request));
-    }
-
     @Operation(summary = "Авторизация пользователя")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Успешная авторизация", content = @Content(schema = @Schema(implementation = JwtAuthenticationResponse.class))),

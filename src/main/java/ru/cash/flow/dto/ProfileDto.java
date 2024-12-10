@@ -11,5 +11,4 @@ import ru.cash.flow.enums.ERole;
 public class ProfileDto {
     private String name;
     private String email;
-    private ERole role;
 }

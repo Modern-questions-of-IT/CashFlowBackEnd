@@ -30,29 +30,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
     @Override
-    public JwtAuthenticationResponse signUp(SignUpRequest request) {
-        Optional<User> userOp = userRepository.findByEmail(request.getEmail());
-        User user;
-        if (userOp.isPresent()) {
-            user = userOp.get();
-        } else {
-            user = User.builder()
-                    .email(request.getEmail())
-                    .passwordHash(passwordEncoder.encode(request
-                            .getPassword())).role(ERole.ROLE_STANDARD)
-                    .name(request.getName())
-                    .createdAt(Instant.now())
-                    .build();
-
-            userService.create(user);
-        }
-
-        var jwt = jwtService.generateToken(user);
-        return new JwtAuthenticationResponse(jwt);
-    }
-
-
-    @Override
     public JwtAuthenticationResponse signIn(SignInRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not fount by username: " + request.getEmail()));
@@ -75,7 +52,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return ProfileDto.builder()
                 .email(user.getEmail())
                 .name(user.getName())
-                .role(user.getRole())
                 .build();
     }
 

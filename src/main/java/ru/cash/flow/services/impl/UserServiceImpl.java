@@ -56,12 +56,4 @@ public class UserServiceImpl implements UserService {
         return getByUsername(username);
     }
 
-
-    @Override
-    @Deprecated
-    public void getAdmin() {
-        User user = getCurrentUser();
-        user.setRole(ERole.ROLE_STANDARD);
-        save(user);
-    }
 }
