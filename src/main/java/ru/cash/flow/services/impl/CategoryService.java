@@ -10,6 +10,7 @@ import ru.cash.flow.enums.ETransaction;
 import ru.cash.flow.mappers.CategoryMapper;
 import ru.cash.flow.repositories.CategoryRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,8 @@ public class CategoryService {
     public Category create(CategoryDto categoryDto) {
         Category category = categoryMapper.toModel(categoryDto);
 
-        return categoryRepository.save(category);
+        category = setCreateTime(category);
+        return categoryRepository.save(setCreateTime(category));
     }
 
     public Category getById(Integer id) {
@@ -38,5 +40,11 @@ public class CategoryService {
 
     public List<Category> getAllByUser(Integer userId, ETransaction type) {
         return categoryRepository.getAllByUserAndType(userId, type);
+    }
+
+    private Category setCreateTime(Category category) {
+        Date currentDate = new Date();
+        category.setCreatedAt(currentDate);
+        return category;
     }
 }
